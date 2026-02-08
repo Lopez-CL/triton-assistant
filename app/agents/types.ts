@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { StreamTextResult } from 'ai';
 
 export const agentTypeSchema = z
-	.enum(['linkedin', 'rag'])
+	.enum(['primoCall', 'rag'])
 	.describe('types of agents to use');
 
 export type AgentType = z.infer<typeof agentTypeSchema>;

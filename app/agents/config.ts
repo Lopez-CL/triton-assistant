@@ -1,14 +1,15 @@
 import { AgentType, AgentConfig } from './types';
 
 export const agentConfigs: Record<AgentType, AgentConfig> = {
-	linkedin: {
-		name: 'LinkedIn Agent',
+	primoCall: {
+		name: 'PrimoVE Agent',
 		description:
-			'Receives input/text and you re-polish the text in a certain voice and tone for LinkedIn',
+			`Reformulates user queries for Primo VE API and synthesizes results into research guidance`
+			// alternative description: Transforms user research queries into optimized API query string for PrimoVE API "q" parameter, then synthesizes returned catalog results into actionable research starting points based on user's research query
 	},
 	rag: {
-		name: 'RAG Agent',
+		name: 'FAQ Agent',
 		description:
-			'For generating a linkedin post based on a user query',
+			'Providing a user with Library FAQ.',
 	},
 };

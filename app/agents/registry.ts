@@ -5,7 +5,7 @@ import { ragAgent } from './rag';
 type AgentExecutor = (request: AgentRequest) => Promise<AgentResponse>;
 
 export const agentRegistry: Record<AgentType, AgentExecutor> = {
-	linkedin: linkedInAgent,
+	primoCall: linkedInAgent,
 	rag: ragAgent,
 };
 
