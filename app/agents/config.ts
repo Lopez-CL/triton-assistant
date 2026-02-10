@@ -10,6 +10,6 @@ export const agentConfigs: Record<AgentType, AgentConfig> = {
 	rag: {
 		name: 'FAQ Agent',
 		description:
-			'Providing a user with Library FAQ.',
+			'Providing a user with Library FAQ based on their question about the UC San Diego Library and its services.',
 	},
 };
