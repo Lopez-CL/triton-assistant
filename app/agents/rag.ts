@@ -14,42 +14,35 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 		input: query,
 	});
 
-	const linkedInPosts = await qdrantClient.search('linkedin-posts', {
+	const ucsdFaqs = await qdrantClient.search('ucsd-faqs', {
 		vector: embedding.data[0].embedding,
-		limit: 10,
+		limit: 2, // at the moment we have so few FAQs that are so sparesly related.
 		with_payload: true,
 	});
 
-	const articles = await qdrantClient.search('articles', {
-		vector: embedding.data[0].embedding,
-		limit: 10,
-		with_payload: true,
-	});
+	console.log('Non-re-ranked FAQS:\n', JSON.stringify(ucsdFaqs, null, 2));
 
-	console.log('linkedInPosts', JSON.stringify(linkedInPosts, null, 2));
-	console.log('articles', JSON.stringify(articles, null, 2));
-
-	const allDocuments = [
-		...linkedInPosts.map((post) => post.payload?.content as string),
-		...articles.map((article) => article.payload?.content as string),
+	const faqs = [
+		...ucsdFaqs.map((faq) => faq.payload?.content as string),
 	];
 
-	const rerankedDocuments = await cohereClient.rerank({
-		model: 'rerank-english-v3.0',
-		query: query,
-		documents: allDocuments,
-		topN: 10,
-	});
+	// Unlear to me atm if only 2 need to be reranked, need to see output exampls
+	// const rerankedDocuments = await cohereClient.rerank({
+	// 	model: 'rerank-english-v3.0',
+	// 	query: query,
+	// 	documents: faqs,
+	// 	topN: 10,
+	// });
 
-	console.log(
-		'rerankedDocuments',
-		JSON.stringify(rerankedDocuments, null, 2)
-	);
+	// console.log(
+	// 	'rerankedDocuments',
+	// 	JSON.stringify(rerankedDocuments, null, 2)
+	// );
 
 	// Map the reranked results back to the original documents using the index
-	const topDocuments = rerankedDocuments.results.map(
-		(result) => allDocuments[result.index]
-	);
+	// const topDocuments = rerankedDocuments.results.map(
+	// 	(result) => faqs[result.index]
+	// );
 
 	// we want to generate a linkedin post based on a user query
 	return streamText({
@@ -58,9 +51,8 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 			{
 				role: 'system',
 				content: `
-				Generate a LinkedIn post based on a user query.
-				Use the style, tone and experiences from these documents to generate the post.
-				Documents: ${JSON.stringify(topDocuments, null, 2)}
+				In markdown format, generate a response to the user's query that summarizes UC San Diego Library's faq["answer"]. Link out to any faq["links"] or media, using faq["files"]. End your response directing users to the FAQ page using the faq["url"]["public"] link.
+				Authoritative FAQ: ${JSON.stringify(faqs[0], null, 2)}
 				`,
 			},
 			{
@@ -70,51 +62,4 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 		],
 		temperature: 0.8,
 	});
-
-	// TODO: Step 1 - Generate embedding for the refined query
-	// Use openaiClient.embeddings.create()
-	// Model: 'text-embedding-3-small'
-	// Dimensions: 512
-	// Input: request.query
-	// Extract the embedding from response.data[0].embedding
-
-	// TODO: Step 2 - Query Pinecone for similar documents
-	// Get the index: pineconeClient.Index(process.env.PINECONE_INDEX!)
-	// Query parameters:
-	//   - vector: the embedding from step 1
-	//   - topK: 10 (to over-fetch for reranking)
-	//   - includeMetadata: true
-
-	// TODO: Step 3 - Extract text from results
-	// Map over queryResponse.matches
-	// Get metadata?.text (or metadata?.content as fallback)
-	// Filter out any null/undefined values
-
-	// TODO: Step 4 - Rerank with Pinecone inference API
-	// Use pineconeClient.inference.rerank()
-	// Model: 'bge-reranker-v2-m3'
-	// Pass the query and documents array
-	// This gives you better quality results
-
-	// TODO: Step 5 - Build context from reranked results
-	// Map over reranked.data
-	// Extract result.document?.text from each
-	// Join with '\n\n' separator
-
-	// TODO: Step 6 - Create system prompt
-	// Include:
-	//   - Instructions to answer based on context
-	//   - Original query (request.originalQuery)
-	//   - Refined query (request.query)
-	//   - The retrieved context
-	//   - Instruction to say if context is insufficient
-
-	// TODO: Step 7 - Stream the response
-	// Use streamText()
-	// Model: openai('gpt-4o')
-	// System: your system prompt
-	// Messages: request.messages
-	// Return the stream
-
-	// throw new Error('RAG agent not implemented yet!');
 }

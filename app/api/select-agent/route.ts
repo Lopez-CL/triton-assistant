@@ -19,7 +19,7 @@ const agentSelectionSchema = z.object({
 	agent: agentTypeSchema,
 	query: z
 	.string()
-	.describe('refine the query for agent and remove spelling mistakes and improper spelling.'),
+	.describe('refine the query for agent, remove spelling mistakes and improper grammar.'),
 	confidence: z
 	.number()
 	.min(1)

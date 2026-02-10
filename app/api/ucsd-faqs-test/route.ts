@@ -8,7 +8,7 @@ export async function POST(request: NextRequest){
     const body = await request.json();
     const {query, topK} = body
 
-    const candidateLimit = Math.max(topK * 2, 3);
+    const candidateLimit = Math.max(topK * 1, 3);
 
     const embedding = await openaiClient.embeddings.create({
         model:'text-embedding-3-small',
