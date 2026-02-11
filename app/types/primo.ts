@@ -79,7 +79,7 @@ export interface PrimoResponse {
 
 export type ModPrimoResponse = {
     resDetails: PrimoResponse["info"],
-    docInfo: {
+    resDocs: {
         docDetails: {
             title: PrimoDoc['pnx']['display']['title'],
             type: PrimoDoc['pnx']['display']['type'],
@@ -88,7 +88,7 @@ export type ModPrimoResponse = {
             genre: PrimoDoc['pnx']['display']['genre'],
             subject: PrimoDoc['pnx']['display']['subject'],
             description: PrimoDoc['pnx']['display']['description'],
-            contents: PrimoDoc['pnx']['display']['contents']},
+            contents: PrimoDoc['pnx']['display']['contents']}[],
         permaLink: string,
         recordid: PrimoDoc['pnx']['control']['recordid']
         hasFullText: boolean

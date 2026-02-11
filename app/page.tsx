@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { text } from 'stream/consumers';
 export default function Home() {
 	const [input, setInput] = useState('');
 	const [messages, setMessages] = useState<
@@ -83,7 +84,6 @@ export default function Home() {
 				console.error('Error from chat API:', await response.text());
 				return;
 			}
-			
 			// Create a new assistant message
 			const assistantMessageId = uuidv4();
 			setMessages((prev) => [
@@ -107,7 +107,6 @@ export default function Home() {
 					
 					const chunk = decoder.decode(value);
 					assistantResponse += chunk;
-					
 					// Update the assistant message with the accumulated response
 					setMessages((prev) =>
 						prev.map((msg) =>
@@ -118,6 +117,7 @@ export default function Home() {
 			);
 		}
 	}
+	console.log("Response!",assistantResponse)
 } catch (error) {
 	console.error('Error in chat:', error);
 } finally {
