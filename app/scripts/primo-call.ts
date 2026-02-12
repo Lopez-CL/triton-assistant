@@ -4,7 +4,7 @@ import 'dotenv/config';
 import { getPrimoPermalink } from '../utilities/permalink-builder';
 import * as Types from '../types';
 const baseUrl = 'https://api-na.hosted.exlibrisgroup.com/primo/v1/search?vid=01UCS_SDI:UCSD&tab=ArticlesBooksEtc&scope=ArticlesBooksEtc'
-const endingParams = '&limit8&Availability=true&lang=eng&inst=01UCS_SDI-UCSD&skipDelivery=true'
+const endingParams = '&limit6&Availability=true&lang=eng&inst=01UCS_SDI-UCSD&skipDelivery=true'
 // const DIR_PRIMO_EXPL = path.join(process.cwd(), 'app/scripts/data/primo_results');
 export async function primoVEApiCall(query: string): Promise<Types.ModPrimoResponse | undefined> {
     try {

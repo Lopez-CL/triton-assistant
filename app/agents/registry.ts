@@ -1,11 +1,11 @@
 import { AgentType, AgentRequest, AgentResponse } from './types';
-import { linkedInAgent } from './linkedin';
+import {primoSynthesis} from './primoVE'
 import { ragAgent } from './rag';
 
 type AgentExecutor = (request: AgentRequest) => Promise<AgentResponse>;
 
 export const agentRegistry: Record<AgentType, AgentExecutor> = {
-	primoCall: linkedInAgent,
+	primoCall: primoSynthesis,
 	rag: ragAgent,
 };
 
