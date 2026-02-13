@@ -18,7 +18,7 @@ export async function primoSynthesis(request:AgentRequest):Promise<AgentResponse
             model:'gpt-4.1-mini',
             input:[{
                 role:'system',
-                content:`Analyze the user's query, identify keywords in research question, and transform it into a parameter string using the following pattern ~<keyword> AND <keyword> AND... Example: "racial bias" AND "social media" AND;`
+                content:`Analyze the user's query, identify keywords in research question, and transform it into a parameter string using the following pattern ~<keyword> AND <keyword> AND...~ Example: "racial bias" AND "social media" AND;`
             },{
                 role:'user',
                 content: query
@@ -39,13 +39,13 @@ export async function primoSynthesis(request:AgentRequest):Promise<AgentResponse
                 {role:'system',
                     content:`You are a helpful librarian at UC San Diego. Generate a well-structured, fairly concise markdown synthesis of items from the online catalog with respect to the user's research query, using this format:
                     ## [Heading that capture research insterest]
-                        [A concise, synthesis paragraph of the top resources retrieved using their title, description, and contents to sort out relevance an usefulness to the query. You always reference the sources in your breakdown by providing a inline footnote that links to the particular resource a thought is coming from, e.g, [1](Permalink to source)]
+                        [A concise, synthesis paragraph of the top resources retrieved using their title, description, and contents to sort out relevance an usefulness to the query. You always reference the sources in your breakdown by providing a inline footnote that links to the particular resource a thought is coming from, e.g, [[1]](Permalink to source)]
                     Rules:
                     - Always begin with some variation of "Here's what I got from UCLS using ${primoQuery}"
                     - Always use ## for main heading and ### for subsections,
                     - ignore resources that aren't relevant to query
                     - Every claim in your synthesis should cite from the sources retrieved cite
-                    
+                    - Your Reference list should be a numbered list that coresponds to the footnote number used.
                     sources retrieved: ${JSON.stringify(primoResp,null,2)}
                     `
                 },

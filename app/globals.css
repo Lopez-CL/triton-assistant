@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap');
 @import 'tailwindcss';
 
 :root {
@@ -11,7 +13,7 @@
 body {
 	color: var(--foreground);
 	background: var(--background);
-	font-family: 'Times New Roman', Times, serif;
+	font: normal normal normal 16px / 1.5 Roboto, sans-serif;
 	line-height: 1.4;
 	max-width: 1000px;
 	margin: 0 auto;
@@ -31,17 +33,32 @@ a:hover {
 	text-decoration: none;
 }
 
+
 h1,
-h2,
+h2 {
+	font-family: Teko-SemiBold, sans-serif;
+	color: #00629b;
+	letter-spacing: .5px;
+	font-size: 3.5em;
+	line-height: 1.1
+}
+
 h3,
 h4,
 h5,
 h6 {
-	font-weight: bold;
-	margin-top: 1em;
-	margin-bottom: 0.5em;
+	color: #333;
+	font-weight: 400;
+	line-height: 1.5
 }
 
+.h2,
+h2 {
+	font-family: Teko-SemiBold, sans-serif;
+	font-size: 2.2em;
+	letter-spacing: .5px;
+	color: #182b49
+}
 /* 90s style table styling */
 table {
 	border-collapse: collapse;
@@ -70,4 +87,8 @@ button {
 	background: #fff;
 	padding: 0.25rem;
 	font-family: 'Times New Roman', Times, serif;
+}
+input::placeholder{
+	color: #333;
+	font-size: 1.1rem;
 }

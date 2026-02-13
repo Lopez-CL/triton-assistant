@@ -127,24 +127,13 @@ export default function Home() {
 
 return (
 	<div className='min-h-screen p-8 max-w-4xl mx-auto'>
-			<h1 className='text-3xl font-bold mb-8'>Mini RAG Chat</h1>
+			<h1 className='text-3xl font-bold mb-8'>Triton Lib-Assitant</h1>
 
 
 			{/* Chat Section */}
-			<div className='border rounded p-4'>
-				<h2 className='text-xl font-semibold mb-4'>
-					Chat with Your Documents
-				</h2>
+			<div className='border rounded p-4 '>
 
 				<div className='h-96 overflow-y-auto mb-4 space-y-4'>
-					{messages.length === 0 && (
-						<div className='text-gray-500 text-center py-8'>
-							<p className='mb-2'>Welcome to Mini RAG!</p>
-							<p className='text-sm'>
-								Upload some text above, then ask questions about it.
-							</p>
-						</div>
-					)}
 					{messages.map((message) => (
 						<div
 						key={message.id}
@@ -173,14 +162,14 @@ return (
 					<input
 						value={input}
 						onChange={(e) => setInput(e.target.value)}
-						placeholder='Ask a question about your documents...'
+						placeholder='Ask me anything about the Library&apos;s services or share your research question...'
 						className='flex-1 p-2 border rounded'
 						disabled={isStreaming}
 						/>
 					<button
 						type='submit'
 						disabled={isStreaming || !input.trim()}
-						className='px-6 py-2 bg-green-600 text-white rounded disabled:bg-gray-400'
+						className='px-6 py-2 bg-green-600 text-black rounded disabled:bg-gray-400'
 						>
 						{isStreaming ? 'Sending...' : 'Send'}
 					</button>
@@ -189,63 +178,3 @@ return (
 		</div>
 	);
 }
-// const [uploadContent, setUploadContent] = useState('');
-// const [isUploading, setIsUploading] = useState(false);
-// // const [uploadStatus, setUploadStatus] = useState('');
-
-// const handleUpload = async () => {
-// 	if (!uploadContent.trim()) return;
-
-// 	setIsUploading(true);
-// 	setUploadStatus('');
-
-// 	try {
-// 		const response = await fetch('/api/upload-document', {
-// 			method: 'POST',
-// 			headers: { 'Content-Type': 'application/json' },
-// 			body: JSON.stringify({ text: uploadContent }),
-// 		});
-
-// 		const data = await response.json();
-
-// 		if (response.ok) {
-// 			setUploadStatus(
-// 				`Success! Uploaded ${data.vectorsUploaded} vectors from ${data.chunksCreated} chunks`
-// 			);
-// 			setUploadContent('');
-// 		} else {
-// 			setUploadStatus(`Error: ${data.error}`);
-// 		}
-// 	} catch {
-// 		setUploadStatus('Failed to upload content');
-// 	} finally {
-// 		setIsUploading(false);
-// 	}
-// };
-
-{/* Upload Section
-<div className='mb-8 p-4 border rounded'>
-	<h2 className='text-xl font-semibold mb-4'>Upload Content</h2>
-	<p className='text-sm text-gray-600 mb-4'>
-		Paste text content below to add it to your knowledge base. The text
-		will be chunked, embedded, and stored in Pinecone for retrieval.
-	</p>
-
-	<textarea
-		value={uploadContent}
-		onChange={(e) => setUploadContent(e.target.value)}
-		placeholder='Paste your text content here...
-
-This can be documentation, articles, or any text you want to query later.'
-		className='w-full p-2 border rounded mb-2 h-32'
-		disabled={isUploading}
-	/>
-	<button
-		onClick={handleUpload}
-		disabled={isUploading || !uploadContent.trim()}
-		className='px-4 py-2 bg-blue-600 text-white rounded disabled:bg-gray-400'
-	>
-		{isUploading ? 'Uploading...' : 'Upload Text'}
-	</button>
-	{uploadStatus && <p className='mt-2 text-sm'>{uploadStatus}</p>}
-</div> */}
