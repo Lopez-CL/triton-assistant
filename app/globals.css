@@ -34,8 +34,7 @@ a:hover {
 }
 
 
-h1,
-h2 {
+h1{
 	font-family: Teko-SemiBold, sans-serif;
 	color: #00629b;
 	letter-spacing: .5px;
@@ -59,6 +58,9 @@ h2 {
 	letter-spacing: .5px;
 	color: #182b49
 }
+
+h3{font-weight: 700;}
+
 /* 90s style table styling */
 table {
 	border-collapse: collapse;
@@ -88,7 +90,63 @@ button {
 	padding: 0.25rem;
 	font-family: 'Times New Roman', Times, serif;
 }
-input::placeholder{
+
+input::placeholder {
 	color: #333;
 	font-size: 1.1rem;
 }
+
+.user-navy {
+	background-color: #00629B;
+	;
+}
+
+.assistant-yellow {
+	background-color: #ffcd00;
+
+	a {
+		color: #000;
+		font-weight: bold;
+	}
+}
+
+.chat-container {
+	background-color: #182B49;
+	& .temp-msg{color: #fff !important;}
+}
+
+.chat-container {
+	background-color: #182B49;
+}
+
+.chat-container > div {
+  background-color: #182B49;
+  scrollbar-width: thin;
+  scrollbar-color: #4a6a8a #182B49;
+}
+
+.chat-container > div::-webkit-scrollbar {
+  width: 12px;
+}
+
+.chat-container > div::-webkit-scrollbar-track {
+  background-color: #182B49;
+}
+
+.chat-container > div::-webkit-scrollbar-thumb {
+  background-color: #4a6a8a;
+  border-radius: 6px;
+}
+
+/* .chat-container>div::-webkit-scrollbar {
+	width: 12px;
+}
+
+.chat-container>div::-webkit-scrollbar-track {
+	background-color: #182B49;
+}
+
+.chat-container>div::-webkit-scrollbar-thumb {
+	background-color: #4a6a8a;
+	border-radius: 6px;
+} */

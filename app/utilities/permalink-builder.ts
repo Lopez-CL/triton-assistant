@@ -22,7 +22,7 @@ export function getPrimoPermalink(
         return 'No record ID found';
     }
 
-    const tab = tabCode || config.defaultTab;
+    const tab = doc.pnx.display.type?.[0] ==="article" ? '1vtf07t': config.defaultTab;
 
     return `${config.baseUrl}/permalink/${config.institutionCode}/${tab}/${recordId}`;
 }

@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Markdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { text } from 'stream/consumers';
 export default function Home() {
 	const [input, setInput] = useState('');
 	const [messages, setMessages] = useState<
@@ -131,15 +130,15 @@ return (
 
 
 			{/* Chat Section */}
-			<div className='border rounded p-4 '>
+			<div className='chat-container border rounded p-4 '>
 
 				<div className='h-96 overflow-y-auto mb-4 space-y-4'>
 					{messages.map((message) => (
 						<div
 						key={message.id}
 						className={`p-3 rounded ${message.role === 'user'
-							? 'bg-blue-100 ml-8'
-							: 'bg-gray-100 mr-8'
+							? 'user-navy text-white ml-8'
+							: 'assistant-yellow text-black mr-8'
 						}`}
 						>
 							<p className='font-semibold mb-1'>
@@ -150,10 +149,8 @@ return (
 							</div>
 						</div>
 					))}
-					{isStreaming && !messages[messages.length - 1]?.content && (
-						<div className='p-3 rounded bg-gray-100 mr-8'>
-							<p className='text-gray-500'>Thinking...</p>
-						</div>
+					{isStreaming && messages[messages.length - 1]?.role === 'user' && (
+							<h3 className= 'temp-msg text-center'>Thinking...</h3>
 					)}
 					<div ref={messagesEndRef} />
 				</div>

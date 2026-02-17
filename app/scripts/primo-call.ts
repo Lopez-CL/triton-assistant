@@ -20,7 +20,7 @@ export async function primoVEApiCall(query: string): Promise<Types.ModPrimoRespo
                 return {
                     ['docDetails']: {
                         title: primoDoc['pnx']['display']['title'],
-                        // type: primoDoc['pnx']['display']['type'],
+                        type: primoDoc['pnx']['display']['type'],
                         // language: primoDoc['pnx']['display']['language'],
                         // publisher: primoDoc['pnx']['display']['publisher'],
                         // genre: primoDoc['pnx']['display']['genre'],

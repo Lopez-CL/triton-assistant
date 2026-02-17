@@ -13,6 +13,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
+			<head>
+				<link rel='text/stylesheet' href='https://library.ucsd.edu/_resources/css/structured-content/global-structured-styles.css'/>
+			</head>
 			<body>
 				<main className='pt-16'>{children}</main>
 			</body>

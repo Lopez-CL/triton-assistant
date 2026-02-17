@@ -67,10 +67,10 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 
 					## [Descriptive Title Based on Question]
 
-					[Very brief summary paragraph answering the question, which includes links to related resources with markdown syntax [Link Title](URL)]
+					[Very brief summary paragraph answering the question, which includes hyperlinks to related resources with markdown syntax [Link Title](URL)]
 
-						### Learn More
-						- [Full FAQ: Title](public URL from FAQ Data)
+					### Learn More
+					[Full FAQ: Title](public URL from FAQ Data)
 
 				Rules:
 				- Always use ## for main heading, ### for subsections
