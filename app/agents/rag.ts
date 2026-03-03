@@ -4,7 +4,6 @@ import { openai } from '@ai-sdk/openai';
 import { streamText } from 'ai';
 import { qdrantClient } from '../libs/qdrant';
 import { cohereClient } from '../libs/cohere';
-import { fa } from 'zod/v4/locales';
 
 export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 	const { query } = request;
@@ -29,7 +28,7 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 	const rerankedFaqs = await cohereClient.rerank({
 		model: 'rerank-english-v3.0',
 		query: query,
-		documents: faqDocs.map((faq) => `question:${faq.payload?.question}, answer:${faq.payload?.answer}`),
+		documents: faqDocs.map((faq) => `question:${faq.payload?.question}, answer:${faq.payload?.answer}`), // should this only be question?
 		topN: 2,
 	});
 
@@ -42,7 +41,7 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 		'rerankedFaqs',
 		JSON.stringify(topFaqs, null, 2)
 	);
-	const topFAQ = topFaqs[0];
+	const topFAQ = topFaqs[0]; // what happens when there's no direct FAQ and the top FAQ actually doesn't speak to query?
 	const faq = [
 		{
 			score: topFAQ.score,
@@ -63,7 +62,7 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 		messages: [
 			{
 				role: 'system',
-				content: `You are a helpful librarian at UC San Diego. Generate a well-structured, conciser markdown response using this format:
+				content: `You are a helpful, empathetic librarian at UC San Diego. Generate a well-structured, conciser markdown response using this format:
 
 					## [Descriptive Title Based on Question]
 
@@ -73,6 +72,7 @@ export async function ragAgent(request: AgentRequest): Promise<AgentResponse> {
 					[Full FAQ: Title](public URL from FAQ Data)
 
 				Rules:
+				- First, you always determine if the retrieved FAQ addresses the user's query. If it does proceed. If it doesn't tell the user that UC San Diego Library doesn't have an FAQ addressing the issue and to contact a librarian directly about their query at [Email UC San Diego Library](https://library.ucsd.edu/ask-us/email.html)
 				- Always use ## for main heading, ### for subsections
 				- Skip sections if no relevant data exists
 
