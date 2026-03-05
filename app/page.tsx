@@ -126,7 +126,7 @@ export default function Home() {
 
 return (
 	<div className='min-h-screen p-8 max-w-4xl mx-auto'>
-			<h1 className='text-3xl font-bold mb-8'>Triton Lib-Assitant</h1>
+			<h1 className='text-3xl font-bold mb-8'>Triton Lib-Assistant</h1>
 
 
 			{/* Chat Section */}
