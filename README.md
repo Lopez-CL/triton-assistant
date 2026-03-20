@@ -1,6 +1,6 @@
 # UCSD Library Chatbot - Agentic RAG & API System
 
-An intelligent chatbot supporting UCSD librarians by asynchronously answering student questions through an agentic two-path workflow: RAG retrieval for knowledge-based queries and API integration for catalog searches.
+An GenAI chatbot design to support UC San Diego librarians by asynchronously answering student questions through an agentic two-path workflow: RAG retrieval for knowledge-based queries and API integration for catalog searches.
 
 ## System Overview
 
