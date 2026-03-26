@@ -4,11 +4,12 @@ import 'dotenv/config';
 import { getPrimoPermalink } from '../utilities/permalink-builder';
 import * as Types from '../types';
 const baseUrl = 'https://api-na.hosted.exlibrisgroup.com/primo/v1/search?vid=01UCS_SDI:UCSD&tab=ArticlesBooksEtc&scope=ArticlesBooksEtc'
-const endingParams = '&limit6&Availability=true&lang=eng&inst=01UCS_SDI-UCSD&skipDelivery=true'
+const endingParams = '&limit11&Availability=true&lang=eng&inst=01UCS_SDI-UCSD&skipDelivery=true'
 // const DIR_PRIMO_EXPL = path.join(process.cwd(), 'app/scripts/data/primo_results');
 export async function primoVEApiCall(query: string): Promise<Types.ModPrimoResponse | undefined> {
     try {
-        const result = await fetch(`${baseUrl}&q=any,contains,${query}${endingParams}&apikey=${process.env.PRIMO_KEY}`, { headers: { 'Content-Type': 'application/json' } });
+        console.log(`📷: ${baseUrl}&q=any,contains,${query}${endingParams}&apikey=$`)
+        const result = await fetch(`${baseUrl}&${query}${endingParams}&apikey=${process.env.PRIMO_KEY}`, { headers: { 'Content-Type': 'application/json' } });
         if (!result.ok) throw new Error(`Issue with api call, ${result.status}`)
         const data = await result.json()
         console.log(data.docs.length)
